@@ -33,17 +33,13 @@ export default function importToConst() {
 
                         // 将 import { computed } from 'vue'; 替换为 const { computed } = Vue;
                         if (specifiers.length > 0) {
-                            if (specifiers.length === 1 && specifiers[0].local.name === 'Vue') {
+                            if (specifiers.length === 1 && specifiers[0].local.name === replaceValue) {
                                 return magicString.overwrite(start, end, '')
                             }
 
                             const requireStatement = `const { ${specifiers
                                 .map((specifier: { imported: { name: any } }) => {
-                                    if (
-                                        specifier.imported?.name === 'Vue'
-                                        || specifier.imported?.name === 'ElementPlus'
-                                    )
-                                        return ''
+                                    if (specifier.imported?.name === replaceValue) return ''
                                     return specifier.imported?.name
                                 })
                                 .filter(Boolean)
