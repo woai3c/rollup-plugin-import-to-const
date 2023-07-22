@@ -41,4 +41,4 @@ const config = {
 }
 ```
 
-插件会根据 `output.globals` 上的变量映射规则以及传入插件的映射规则去替换代码中的变量。
+插件会根据 `output.globals` 上的变量映射规则去替换代码中的变量。
