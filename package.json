@@ -1,0 +1,43 @@
+{
+  "name": "rollup-plugin-import-to-const",
+  "version": "0.1.0",
+  "description": "将 import 导入变量替换为 const 命名变量 的 rollup 插件。 ```js import { computed } from 'vue' ↓ const { computed } = Vue ``` ## 使用 安装 ```sh npm i -D rollup-plugin-import-to-const # or pnpm i -D rollup-plugin-import-to-const ``` 引入 ```js import importToConst from 'rollup-plugin-import-to-const'",
+  "main": "import-to-const.js",
+  "module": "import-to-const.mjs",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woai3c/rollup-plugin-import-to-const.git"
+  },
+  "author": "woai3c",
+  "license": "MIT",
+  "files": [
+    "index.ts",
+    "index.d.ts",
+    "package.json",
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/woai3c/rollup-plugin-import-to-const/issues"
+  },
+  "homepage": "https://github.com/woai3c/rollup-plugin-import-to-const#readme",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/node": "^20.4.3",
+    "rollup": "^3.26.3",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "acorn": "^8.10.0",
+    "magic-string": "^0.30.1"
+  }
+}
