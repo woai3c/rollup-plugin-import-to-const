@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-import-to-const",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "将 import 导入变量替换为 const 命名变量 的 rollup 插件。 ```js import { computed } from 'vue' ↓ const { computed } = Vue ``` ## 使用 安装 ```sh npm i -D rollup-plugin-import-to-const # or pnpm i -D rollup-plugin-import-to-const ``` 引入 ```js import importToConst from 'rollup-plugin-import-to-const'",
   "main": "dist/import-to-const.js",
   "module": "dist/import-to-const.mjs",
