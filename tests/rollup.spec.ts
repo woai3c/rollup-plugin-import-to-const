@@ -4,16 +4,16 @@ import type { OutputOptions } from 'rollup'
 test('importToConst', async () => {
     const sourceCode = `
 import { computed, reactive, ref } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import * as Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import { ElInput } from 'element-plus'
 `
 
-const targetCode = `
-const { computed, reactive, ref } = Vue;
-const { useStore } = Vuex;
-const { useRoute } = VueRouter;
-const { ElInput } = ElementPlus;
+    const targetCode = `
+const { computed: computed, reactive: reactive, ref: ref } = Vue;
+const Vuex = Vuex;
+const VueRouter = VueRouter;
+const { ElInput: ElInput } = ElementPlus;
 `
     const bundleOptions = {
         'test': { code: sourceCode }

@@ -25,25 +25,30 @@ export default function importToConst() {
                         const { source, specifiers, start, end } = node
                         const { value } = source
                         let replaceValue = ''
-
                         if (!globalDep[value]) return
-
                         // 找到需要外部化的依赖，将其替换为全局变量
                         replaceValue = globalDep[value]
-
                         // 将 import { computed } from 'vue'; 替换为 const { computed } = Vue;
                         if (specifiers.length > 0) {
-                            if (specifiers.length === 1 && specifiers[0].local.name === replaceValue) {
-                                return magicString.overwrite(start, end, '')
-                            }
+                            let requireStatement = ''
+                            if (specifiers.length === 1 && !specifiers[0].imported) {
+                                // const o = Vue;
+                                requireStatement = `const ${specifiers[0].local.name} = ${replaceValue};`
+                            } else {
+                                requireStatement = `const { ${specifiers
+                                    .map((specifier: { imported: { name: string }, local: { name: string } }) => {
+                                        if (specifier.imported?.name === replaceValue) return ''
 
-                            const requireStatement = `const { ${specifiers
-                                .map((specifier: { imported: { name: any } }) => {
-                                    if (specifier.imported?.name === replaceValue) return ''
-                                    return specifier.imported?.name
-                                })
-                                .filter(Boolean)
-                                .join(', ')} } = ${replaceValue};`
+                                        if (specifier.local?.name) {
+                                            // const { nextTick: o } = Vue
+                                            return specifier.imported?.name + ': ' + specifier.local.name
+                                        }
+
+                                        return specifier.imported?.name
+                                    })
+                                    .filter(Boolean)
+                                    .join(', ')} } = ${replaceValue};`
+                            }
 
                             magicString.overwrite(start, end, requireStatement)
                         }
