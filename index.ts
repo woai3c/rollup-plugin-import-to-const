@@ -10,7 +10,9 @@ export default function importToConst() {
             if (!Object.keys(globalDep).length) return
 
             Object.values(bundle).forEach((data) => {
+                if (!('code' in data)) return
                 const { code } = data as { code: string }
+                if (typeof code !== 'string') return
                 const ast = parse(code, {
                     ecmaVersion: 'latest',
                     sourceType: 'module',
